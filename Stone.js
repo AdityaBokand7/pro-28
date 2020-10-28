@@ -2,7 +2,7 @@ class Stone{
   constructor(x,y,width,height) {
     var options = {
       restitution:0,
-      density:3,
+      density:1.2,
       friction:1,
         isStatic:false
     }
@@ -18,7 +18,7 @@ this.image = loadImage("Plucking mangoes/stone.png")
     push();
     translate(pos.x,pos.y)
     imageMode(CENTER);
-   image(this.image,0, 0, 100, 100);
+   image(this.image,0, 0, this.width, this.height);
    pop();
   }
 };

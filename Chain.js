@@ -3,8 +3,8 @@ class Chain{
         var options = {
             bodyA: bodyA,
             pointB: pointB,
-            stiffness: 0.04,
-            length: 10
+            stiffness: 0.004,
+            length: 5
         }
 
        
@@ -16,6 +16,7 @@ class Chain{
     }
     attach(body){
         this.chain.bodyA = body;
+        
     }
     
     fly(){

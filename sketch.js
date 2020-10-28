@@ -4,6 +4,7 @@ const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
 const Constraint = Matter.Constraint;
+const Render = Matter.Render;
 var ground;
 var tree;
 var boy;
@@ -18,6 +19,7 @@ var mango6;
 
 
 var gameState = "onsling"
+
 function preload()
 {
 	
@@ -34,17 +36,16 @@ function setup() {
 ground = new Ground(700,670,width,20)
 tree = new Tree(1100,330,20,10)
 boy = new Boy(400,600,50,100)
-stone = new Stone(200,200,20,20);
-mango = new Mangoes(1000,330)
-mango2 = new Mangoes(1300,200)
-mango3 = new Mangoes(1100,150)
-mango4 = new Mangoes(1250,330)
-mango5 = new Mangoes(1200,50)
-mango6 = new Mangoes(1400,120)
+stone = new Stone(200,200,50,50);
+mango = new Mangoes(1000,330,70,70)
+mango2 = new Mangoes(1300,200,70,70)
+mango3 = new Mangoes(1100,150,70,70)
+mango4 = new Mangoes(1250,330,70,70)
+mango5 = new Mangoes(1200,50,70,70)
+mango6 = new Mangoes(1400,120,70,70)
 
 chain = new Chain(stone.body,{x:327,y:530})
-
-stone.depth = stone.depth+1
+var render = Render.create({ element: document.body, engine: engine, options: { width: 1300, height: 600, wireframes: false } });
 	Engine.run(engine);
   
 }
@@ -57,12 +58,7 @@ function draw() {
   Engine.update(engine);
 
   
-  detectollision(stone,mango)
-  detectollision(stone,mango2)
-  detectollision(stone,mango3)
-  detectollision(stone,mango4)
-  detectollision(stone,mango5)
-  detectollision(stone,mango6)
+ 
 
   ground.display();
   tree.display();
@@ -75,8 +71,19 @@ function draw() {
   mango3.display();
   mango4.display();
   mango5.display();
+
+
+  detectollision(stone,mango)
+  detectollision(stone,mango2)
+  detectollision(stone,mango3)
+  detectollision(stone,mango4)
+  detectollision(stone,mango5)
+  detectollision(stone,mango6)
+
+
   drawSprites();
  
+  
 }
 function mouseDragged(){
   if(gameState!=="launched")
@@ -92,7 +99,7 @@ gameState = "launched"
 function keyPressed(){
 if(keyCode  === 32){
 chain.attach(stone.body)
-
+gameState = "onsling"
 }
 
 }
@@ -102,9 +109,9 @@ stoneBodyPosition=lstone.body.position
 mangoBodyPosition=lmango.body.position
 
 var distance = dist(stoneBodyPosition.x,stoneBodyPosition.y,mangoBodyPosition.x,mangoBodyPosition.y)
-if(distance<-lmango.r+lstone.r)
+if(distance<=lmango.r+lstone.r)
 {
-Matter.body.setStatic(lmango.body,false)
+Matter.Body.setStatic(lmango.body,false)
 
 }
 }
